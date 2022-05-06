@@ -114,15 +114,15 @@ body {
   }
   
   .order{
-    font-size: 20px;
+    font-size: 0.75em;
   }
   
  .add_qty{
-  font-size: 20px;
+  font-size: 0.75em;
 }
 
 .reduce_qty{
-  font-size: 20px;
+  font-size: 0.75em;
 }
 
 .container {
