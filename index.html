@@ -14,6 +14,43 @@
     </div>
 
     <div class="container">
+
+      <div class="cartTotal " >
+        <strong>Total price</strong>  
+        <span class="cartTotalPrice">0.00</span>
+        <a href="#">
+          <img src="shopping-cart.png" alt="">
+        </a>
+      </div>
+  
+  
+      <div class="cart" >
+        <h3>Shopping Cart</h3>
+        <img src="shopping-cart.png" alt="">
+  
+          <table>
+            <tr>
+              <td><strong>Small pizzas total:</strong></td>
+              <td><span class="smallTotalPrice">0.00</span></td>
+            </tr>
+  
+            <tr>
+              <td><strong>Medium pizzas total:</strong></td>
+              <td><span class="mediumTotalPrice">0.00</span></td>
+            </tr>
+            <tr>
+              <td><strong>Large pizza total:</strong></td>
+              <td><span class="largeTotalPrice">0.00</span></td>
+            </tr>
+            <tr>
+              <td><strong>Total price</strong></td>
+              <td><span class="totalPrice">0.00</span></td>
+            </tr>
+          </table>
+      </div>
+      
+
+
     <div class="specials">
       <div class="row">
         <div class="medium">
@@ -29,9 +66,26 @@
           </i>
         
           <button class="order">Add order</button>
+          <div class="pizza-qty"
+          x-data ="{
+            qty:1,
+            minus(value){
+              this.qty = parseInt(this.qty)
+              (this.qty == 1 ) ? this.qty = 1 : this.qty == value;
+            }, 
+            plus(value){
+              this.qty += value;
+            }
+          }">
+           <!-- x-init="$watch("qty", value => $dispatch("quantity_changed", value))" -->
+          <button class="add_qty" @click="plus">
+            <!-- <span class="sr-only">{{"products,product,quantity.decrese" | t: product.tittle | escape}}</span>
+            {% render "icon-minus" $} -->
+         + </button>
+          <button class="reduce_qty">-</button>
         </div>
     </div>
-
+  </div>
         <div class="row">
         <div class="large">
           <img  src="https://image.shutterstock.com/image-vector/italian-pizza-tomato-sausage-olive-600w-554691619.jpg" alt="">
@@ -45,9 +99,11 @@
                 </ul>
           </i>
           <button class="order">Add order</button>
+          <button class="add_qty">+</button>
+          <button class="reduce_qty">-</button>
         </div>
     </div>
-    
+
         <div class="row">
         <div class="small">
           <img  src="https://image.shutterstock.com/image-vector/italian-pizza-tomato-sausage-olive-600w-554691619.jpg" alt="">
@@ -60,8 +116,9 @@
               <li>3 or less other toppings.</li>
             </ul>
           </i>
-      
           <button class="order">Add order</button>
+          <button class="add_qty">+</button>
+          <button class="reduce_qty">-</button>
         </div>
     </div>
     </div>
