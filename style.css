@@ -213,7 +213,7 @@ body {
 
 
 
-  /* .container {
+  .container {
     display: grid;
     gap: 50px 100px;
     grid-template-columns: auto auto auto;
@@ -225,4 +225,4 @@ body {
     padding: 20px;
     font-size: 20px;
     text-align: center;
-  } */
+  }
