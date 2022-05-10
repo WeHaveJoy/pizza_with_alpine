@@ -24,7 +24,9 @@
             return this.total() > 0
         },
         pizzaSize:null,
-        qty: null,
+        smallQty:null,
+        mediumQty:null,
+        largeQty:null,
         total() {
             return this.largePizza + this.smallPizza + this.mediumPizza
         },
@@ -47,31 +49,38 @@
   
           <table>
             <tr>
+              <th>Type</th>
+              <th>Add/Reduce price</th>
+              <th>Price</th>
+              <th>Quantity</th>
+            </tr>
+            <tr>
               <td><strong>Small pizzas total:</strong></td>
-              <td> <button id="plus" @click="smallPizza += 48.99">+</button> <button
-                x-bind:disabled="smallPizza <= 0" id="minus" @click="smallPizza -=48.99">-</button></td>
+              <td> <button id="plus" @click="smallQty++, smallPizza += 48.99">+</button> <button
+                x-bind:disabled="smallPizza <= 0" id="minus" @click="smallQty--, smallPizza -=48.99">-</button></td>
                 <td><span class="smallTotalPrice"
                   x-html="smallPizza <= 0 ? '0.00' : smallPizza.toFixed(2)">0.00</span></td>
-
+                  <td><span x-text="smallQty"></span></td>
             </tr>
   
             <tr>
               <td><strong>Medium pizzas total:</strong></td>
-              <td> <button id="plus" @click="mediumPizza += 78.99">+</button> <button
-                x-bind:disabled="mediumPizza <= 0" id="minus" @click="mediumPizza -= 78.99">-</button>
+              <td> <button id="plus" @click="mediumQty++, mediumPizza += 78.99">+</button> <button
+                x-bind:disabled="mediumPizza <= 0" id="minus" @click="mediumQty--, mediumPizza -= 78.99">-</button>
         </td>
               <td><span class="mediumTotalPrice"
                 x-html="mediumPizza <= 0 ? '0.00' : mediumPizza.toFixed(2)" >0.00</span></td>
+                <td><span x-text="mediumQty"></span></td>
             </tr>
 
 
             <tr>
               <td><strong>Large pizza total:</strong></td>
-              <td> <button id="plus" @click="largePizza += 114.99">+</button> <button
-                x-bind:disabled="largePizza <= 0   " id="minus" @click="largePizza -= 114.99">-</button>
+              <td> <button id="plus" @click="largeQty++, largePizza += 114.99">+</button> <button
+                x-bind:disabled="largePizza <= 0   " id="minus" @click="largeQty--, largePizza -= 114.99">-</button>
         </td>
-
               <td><span class="largeTotalPrice"  x-html="largePizza <= 0 ? '0.00' :largePizza.toFixed(2)">0.00</span></td>
+              <td><span x-text="largeQty"></span></td>
             </tr>
 
             <tr>
