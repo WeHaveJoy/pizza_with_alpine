@@ -8,7 +8,7 @@
   <title>JS Bin</title>
 </head>
 <body>
-  <div>
+ 
     <div>
         <h1 class="pizza">Perfect Pizza</h1>
     </div>
@@ -17,7 +17,7 @@
 
       <div x-data="{
         mediumPizza: 0,
-        message: 'Added!',
+        messageSuccess: 'Successfully added!',
         largePizza:0,
         smallPizza:0,
         showCart(){
@@ -27,23 +27,25 @@
         smallQty:null,
         mediumQty:null,
         largeQty:null,
+        table:null,
         total() {
             return this.largePizza + this.smallPizza + this.mediumPizza
         },
-        buyMedium: true,
-        buyLarge: true,
-        buySmall: true,
-        delete: null}">
+        show(){
+          return this.total() > 0
+        }
+      }">
 
-      <div class="cartTotal " >
+      
+      <div class="cartTotal" x-show="show()">
         <strong>Total price</strong>  
-        <span class="cartTotalPrice" x-text="total() <= 0 ? '0.00' :total().toFixed(2)">0.00</span>
+        <span class="cartTotalPrice" x-text="total() <= 0 ? 'R0.00' :total().toFixed(2)">0.00</span>
         <a href="#">
           <img src="shopping-cart.png" alt="">
         </a>
       </div>
   
-      <div class="cart" >
+      <div class="cart" x-show="show()" >
         <h3>Shopping Cart</h3>
         <img src="shopping-cart.png" alt="">
   
@@ -54,45 +56,53 @@
               <th>Price</th>
               <th>Quantity</th>
             </tr>
+    
             <tr>
+              <div x-show="show()">
               <td><strong>Small pizzas total:</strong></td>
               <td> <button id="plus" @click="smallQty++, smallPizza += 48.99">+</button> <button
                 x-bind:disabled="smallPizza <= 0" id="minus" @click="smallQty--, smallPizza -=48.99">-</button></td>
                 <td><span class="smallTotalPrice"
-                  x-html="smallPizza <= 0 ? '0.00' : smallPizza.toFixed(2)">0.00</span></td>
+                  x-html="smallPizza <= 0 ? 'R0.00' : 'R' + smallPizza.toFixed(2)">0.00</span></td>
                   <td><span x-text="smallQty"></span></td>
+              </div>
             </tr>
-  
-            <tr>
+            
+            <tr >
               <td><strong>Medium pizzas total:</strong></td>
+
               <td> <button id="plus" @click="mediumQty++, mediumPizza += 78.99">+</button> <button
                 x-bind:disabled="mediumPizza <= 0" id="minus" @click="mediumQty--, mediumPizza -= 78.99">-</button>
         </td>
               <td><span class="mediumTotalPrice"
-                x-html="mediumPizza <= 0 ? '0.00' : mediumPizza.toFixed(2)" >0.00</span></td>
+                x-html="mediumPizza <= 0 ? 'R0.00' : 'R' + mediumPizza.toFixed(2)" >0.00</span></td>
                 <td><span x-text="mediumQty"></span></td>
+              
             </tr>
 
-
             <tr>
+              
               <td><strong>Large pizza total:</strong></td>
               <td> <button id="plus" @click="largeQty++, largePizza += 114.99">+</button> <button
-                x-bind:disabled="largePizza <= 0   " id="minus" @click="largeQty--, largePizza -= 114.99">-</button>
+                x-bind:disabled="largePizza <= 0  " id="minus" @click="largeQty--, largePizza -= 114.99">-</button>
         </td>
-              <td><span class="largeTotalPrice"  x-html="largePizza <= 0 ? '0.00' :largePizza.toFixed(2)">0.00</span></td>
+              <td><span class="largeTotalPrice"  x-html="largePizza <= 0 ? 'R0.00' :'R' + largePizza.toFixed(2)">0.00</span></td>
               <td><span x-text="largeQty"></span></td>
+            
             </tr>
-
+        
             <tr>
-              <td><strong>Total price</strong></td>
-              <td><span x-text="total() <= 0 ? '0.00' :total().toFixed(2)" class="totalPrice">0.00</span></td>
+              <td><strong>Total</strong></td>
+              <td></td>
+              <td><span x-text="total() <= 0 ? 'R0.00' : 'R' + total().toFixed(2)" class="totalPrice">0.00</span></td>
+              <td><span x-text="smallQty + mediumQty + largeQty"></span></td>
             </tr>
           </table>
       </div>
-
+   
     <div class="specials">
       <div class="row">
-        <div class="medium">
+        <div class="medium" >
           <img  src="https://image.shutterstock.com/image-vector/italian-pizza-tomato-sausage-olive-600w-554691619.jpg" alt="">
           <h2>Medium Pizza</h2>
           <h3>R78.99</h3>
@@ -103,27 +113,10 @@
                 <li>3 or less other toppings.</li>
             </ul>
           </i>
-          <!-- <button class="order">Add order</button>
-          <div class="pizza-qty"
-          x-data ="{
-            qty:1,
-            minus(value){
-              this.qty = parseInt(this.qty)
-              (this.qty == 1 ) ? this.qty = 1 : this.qty == value;
-            }, 
-            plus(value){
-              this.qty += value;
-            }
-          }"> -->
-           <!-- x-init="$watch("qty", value => $dispatch("quantity_changed", value))" -->
-          <!-- <button class="add_qty" @click="plus"> -->
-            <!-- <span class="sr-only">{{"products,product,quantity.decrese" | t: product.tittle | escape}}</span>
-            {% render "icon-minus" $} -->
-         <!-- + </button>
-          <button class="reduce_qty">-</button> -->
+           <button class="order" @click="mediumQty++, mediumPizza += 78.99">Add to cart</button>
         </div>
     </div>
-  </div>
+  
         <div class="row">
         <div class="large">
           <img  src="https://image.shutterstock.com/image-vector/italian-pizza-tomato-sausage-olive-600w-554691619.jpg" alt="">
@@ -135,6 +128,7 @@
                     <li> 3 meat toppings max.</li>
                     <li>3 or less other toppings.</li>
                 </ul>
+                <button class="order" @click="largeQty++, largePizza += 114.99">Add to cart</button>
           </i>
         </div>
     </div>
@@ -150,12 +144,14 @@
               <li>1 meat topping.</li>
               <li>3 or less other toppings.</li>
             </ul>
+            <button class="order" @click="smallQty++, smallPizza += 48.99">Add to cart</button>
           </i>
         </div>
     </div>
     </div>
-    </div>
-    </div>
+  </div>
+</div>
+</div>
     <br>
     <br>
     <br>
